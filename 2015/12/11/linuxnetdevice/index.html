@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linux虚拟网络设备介绍 | zhoushuai&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="linux bridge  如名字所说，实现数据包的转发只能够处理接收的包，不能处理发送的包   vlan device  实现数据包的隔离通常与linux bridge结合使用，来模拟现实世界的802.1q交换机   tap设备（tun，tap）  让用户程序向内核协议栈注入数据的设备tun工作在三层，tap工作在二层   veth设备  总是成对出现作用是反转通讯数据的方向，间接完成数据注入">
+<meta name="keywords" content="network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux虚拟网络设备介绍">
+<meta property="og:url" content="http://yoursite.com/2015/12/11/linuxnetdevice/index.html">
+<meta property="og:site_name" content="zhoushuai&#39;s blog">
+<meta property="og:description" content="linux bridge  如名字所说，实现数据包的转发只能够处理接收的包，不能处理发送的包   vlan device  实现数据包的隔离通常与linux bridge结合使用，来模拟现实世界的802.1q交换机   tap设备（tun，tap）  让用户程序向内核协议栈注入数据的设备tun工作在三层，tap工作在二层   veth设备  总是成对出现作用是反转通讯数据的方向，间接完成数据注入">
+<meta property="og:updated_time" content="2017-05-14T13:09:09.849Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux虚拟网络设备介绍">
+<meta name="twitter:description" content="linux bridge  如名字所说，实现数据包的转发只能够处理接收的包，不能处理发送的包   vlan device  实现数据包的隔离通常与linux bridge结合使用，来模拟现实世界的802.1q交换机   tap设备（tun，tap）  让用户程序向内核协议栈注入数据的设备tun工作在三层，tap工作在二层   veth设备  总是成对出现作用是反转通讯数据的方向，间接完成数据注入">
+  
+    <link rel="alternative" href="/atom.xml" title="zhoushuai&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">zhoushuai&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-linuxnetdevice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/11/linuxnetdevice/" class="article-date">
+  <time datetime="2015-12-11T02:05:51.000Z" itemprop="datePublished">2015-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      linux虚拟网络设备介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>linux bridge</p>
+<blockquote>
+<p>如名字所说，实现数据包的转发<br>只能够处理接收的包，不能处理发送的包</p>
+</blockquote>
+</li>
+<li><p>vlan device</p>
+<blockquote>
+<p>实现数据包的隔离<br>通常与linux bridge结合使用，来模拟现实世界的802.1q交换机</p>
+</blockquote>
+</li>
+<li><p>tap设备（tun，tap）</p>
+<blockquote>
+<p>让用户程序向内核协议栈注入数据的设备<br>tun工作在三层，tap工作在二层</p>
+</blockquote>
+</li>
+<li><p>veth设备</p>
+<blockquote>
+<p>总是成对出现<br>作用是反转通讯数据的方向，间接完成数据注入</p>
+</blockquote>
+</li>
+</ul>
+<p>*ovs （openflow vswitch）</p>
+<blockquote>
+<p>模拟现实的二层交换机的基本功能，并且额外支持openflow协议<br>性能和linux bridge相当</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/11/linuxnetdevice/" data-id="cj2oq84sc0000o4wh1t0aqph3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/11/mininetproblem/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mininetproblem
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/11/loadbalance/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">loadbalance</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/network/" style="font-size: 10px;">network</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/11/mininetproblem/">mininetproblem</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/11/linuxnetdevice/">linux虚拟网络设备介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/11/loadbalance/">loadbalance</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhoushuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
