@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>zhoushuai&#39;s blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-05-14T13:09:09.867Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>zhoushuai</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mininetproblem</title>
+    <link href="http://yoursite.com/2015/12/11/mininetproblem/"/>
+    <id>http://yoursite.com/2015/12/11/mininetproblem/</id>
+    <published>2015-12-11T02:08:55.000Z</published>
+    <updated>2017-05-14T13:09:09.867Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>关于mininet在非正常退出时，不会清理掉ovs-switchd相关进程的解决：  
+</em>删除并重新创建ovsdb-server的数据库conf.db<br>操作命令（具体目录可能有变）:    </p>
+<blockquote>
+<p>   rm /etc/openvswitch/conf.db     (最好备份，以防后面创建失败)<br>   service openvswitch-switch stop<br>   ovsdb-tool create /etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema<br>   service openvswitch-switch start  </p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;关于mininet在非正常退出时，不会清理掉ovs-switchd相关进程的解决：  
+&lt;/em&gt;删除并重新创建ovsdb-server的数据库conf.db&lt;br&gt;操作命令（具体目录可能有变）:    &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;   rm /etc
+    
+    </summary>
+    
+    
+      <category term="network" scheme="http://yoursite.com/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux虚拟网络设备介绍</title>
+    <link href="http://yoursite.com/2015/12/11/linuxnetdevice/"/>
+    <id>http://yoursite.com/2015/12/11/linuxnetdevice/</id>
+    <published>2015-12-11T02:05:51.000Z</published>
+    <updated>2017-05-14T13:09:09.849Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><p>linux bridge</p>
+<blockquote>
+<p>如名字所说，实现数据包的转发<br>只能够处理接收的包，不能处理发送的包</p>
+</blockquote>
+</li>
+<li><p>vlan device</p>
+<blockquote>
+<p>实现数据包的隔离<br>通常与linux bridge结合使用，来模拟现实世界的802.1q交换机</p>
+</blockquote>
+</li>
+<li><p>tap设备（tun，tap）</p>
+<blockquote>
+<p>让用户程序向内核协议栈注入数据的设备<br>tun工作在三层，tap工作在二层</p>
+</blockquote>
+</li>
+<li><p>veth设备</p>
+<blockquote>
+<p>总是成对出现<br>作用是反转通讯数据的方向，间接完成数据注入</p>
+</blockquote>
+</li>
+</ul>
+<p>*ovs （openflow vswitch）</p>
+<blockquote>
+<p>模拟现实的二层交换机的基本功能，并且额外支持openflow协议<br>性能和linux bridge相当</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;linux bridge&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如名字所说，实现数据包的转发&lt;br&gt;只能够处理接收的包，不能处理发送的包&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;vlan device&lt;/p&gt;
+&lt;blockquote
+    
+    </summary>
+    
+    
+      <category term="network" scheme="http://yoursite.com/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>loadbalance</title>
+    <link href="http://yoursite.com/2015/12/11/loadbalance/"/>
+    <id>http://yoursite.com/2015/12/11/loadbalance/</id>
+    <published>2015-12-11T01:59:11.000Z</published>
+    <updated>2017-05-14T13:09:09.857Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><ul>
+<li>硬件：贵</li>
+<li>软件：LVS</li>
+</ul>
+<h2 id="负载均衡类型"><a href="#负载均衡类型" class="headerlink" title="负载均衡类型"></a>负载均衡类型</h2><ul>
+<li>LVS-DR  </li>
+<li>LVS-NAT  </li>
+<li>LVS-TUN  </li>
+<li>Full-NAT  </li>
+</ul>
+<h4 id="DR-Direct-Routing"><a href="#DR-Direct-Routing" class="headerlink" title="DR Direct Routing"></a>DR Direct Routing</h4><ul>
+<li>直接路由，性能最好</li>
+<li>在loopback上绑定VIP</li>
+</ul>
+<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><ul>
+<li>外网和内网地址的映射</li>
+<li>请求时，修改DNAT为目的RS的IP，回应时，修改SNAT为VIP</li>
+</ul>
+<h4 id="Full-NAT"><a href="#Full-NAT" class="headerlink" title="Full-NAT"></a>Full-NAT</h4><ul>
+<li>外网和内网地址的映射</li>
+<li>请求时，修改源IP为LVS内网IP，目的IP为目的RS的IP，回应时，修改源IP为LVS的VIP，目的IP为客户端的IP</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;负载均衡&quot;&gt;&lt;a href=&quot;#负载均衡&quot; class=&quot;headerlink&quot; title=&quot;负载均衡&quot;&gt;&lt;/a&gt;负载均衡&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;硬件：贵&lt;/li&gt;
+&lt;li&gt;软件：LVS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;负载均衡类型&quot;&gt;&lt;a href=
+    
+    </summary>
+    
+    
+      <category term="network" scheme="http://yoursite.com/tags/network/"/>
+    
+  </entry>
+  
+</feed>
